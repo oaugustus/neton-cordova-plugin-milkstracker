@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    id="neton-cordova-plugin-milkstracker"
+    version="1.0.0">
+    <name>Net On Cordova Milk's Tracker Plugin</name>
+    <description>Plugin cordova que inicializa/para o serviço do Milk's Tracker no dispositivo</description>
+    <license>MIT</license>
+    <keywords></keywords>
+    <repo>https://github.com/oaugustus/neton-cordova-plugin-milkstracker.git</repo>
+    <issue>https://github.com/oaugustus/neton-cordova-plugin-milkstracker/issues</issue>
+
+    <!-- android -->
+    <platform name="android">
+      <js-module src="www/plugin.js" name="plugin">
+        <runs/>
+        <clobbers target="NetonCordovaPluginMilksTracker" />
+      </js-module>
+      <config-file target="res/xml/config.xml" parent="/*">
+        <feature name="NetonCordovaPluginMilksTracker">
+          <param name="android-package" value="br.com.neton.NetonCordovaPluginMilksTracker" />
+          <param name="onload" value="true" />
+        </feature>
+      </config-file>
+
+      <source-file src="src/android/br/com/neton/NetonCordovaPluginMilksTracker.java" target-dir="src/br/com/neton/" />
+    </platform>
+</plugin>
