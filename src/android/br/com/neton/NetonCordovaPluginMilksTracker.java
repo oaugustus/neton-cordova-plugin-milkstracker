@@ -14,6 +14,7 @@ import org.json.JSONException;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Build;
+import android.content.Context;
 
 import android.util.Log;
 
@@ -29,25 +30,28 @@ public class NetonCordovaPluginMilksTracker extends CordovaPlugin {
   }
 
   public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
-    if(action.equals("start")) {
-      ComponentName componentName = new ComponentName("br.com.milksrota.tracker","br.com.milksrota.tracker.TrackingService");
-      Intent intent = new Intent();
-      intent.setComponent(componentName);
+      Context context = this.cordova.getActivity().getApplicationContext();
 
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        startForegroundService(intent);
-      } else {
-        startService(intent);
+      if (action.equals("start")) {
+        ComponentName componentName = new ComponentName("br.com.milksrota.tracker","br.com.milksrota.tracker.TrackingService");
+        Intent intent = new Intent();
+        intent.setComponent(componentName);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(intent);
+        } else {
+            context.startService(intent);
+        }
+
+      } else if (action.equals("stop")) {
+          ComponentName componentName = new ComponentName("br.com.milksrota.tracker","br.com.milksrota.tracker.TrackingService");
+          Intent intent = new Intent();
+          intent.setComponent(componentName);
+
+          context.stopService(intent);
       }
 
-    } else if(action.equals("stop")) {
-      ComponentName componentName = new ComponentName("br.com.milksrota.tracker","br.com.milksrota.tracker.TrackingService");
-      Intent intent = new Intent();
-      intent.setComponent(componentName);
-
-      stopService(intent);
-    }
-    return true;
+      return true;
   }
 
 }
